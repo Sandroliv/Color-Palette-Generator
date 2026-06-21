@@ -1,0 +1,251 @@
+/* ── OUTPUT AREA ─────────────────────────────── */
+
+/* Constant breathing room under the hero rule —
+   also when the output card is hidden. */
+main {
+    padding-top: 48px;
+}
+
+#output {
+    width: min(760px, calc(100% - 48px));
+    margin: 0 auto 28px;
+    padding: 24px 28px;
+    font-family: var(--font-banner);
+    font-weight: 400;
+    font-size: clamp(0.9rem, 2vw, 0.98rem);
+    line-height: 1.7;
+    color: var(--black);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+/* Empty output (palette went to history): hide the card. */
+#output:empty {
+    display: none;
+}
+
+.multi-color-output {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+/* ── FORM ────────────────────────────────────── */
+
+#form {
+    width: min(900px, calc(100% - 48px));
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Prompt on top, format buttons below. */
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+}
+
+.input-area .search-bar {
+    width: 100%;
+}
+.input-area #input {
+    margin-bottom: 0;
+}
+
+.search-bar {
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+#input {
+    display: block;
+    width: 100%;
+    padding: 15px 112px 15px 18px;
+    font-size: clamp(0.9rem, 2vw, 0.98rem);
+    font-family: var(--font-banner);
+    font-weight: 400;
+    color: var(--black);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    outline: none;
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease;
+}
+
+#input::placeholder {
+    color: var(--muted);
+}
+
+#input:focus {
+    border-color: var(--black);
+    background: var(--white);
+}
+
+/* ── UPLOAD & SUBMIT BUTTONS ─────────────────── */
+
+.inside-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--black);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition:
+        background var(--t-base),
+        transform var(--t-base);
+}
+
+.inside-btn img {
+    width: 15px;
+    height: 15px;
+    display: block;
+    object-fit: contain;
+}
+
+#uploadBtn {
+    right: 56px;
+    background: var(--white);
+}
+#uploadBtn img {
+    filter: invert(0);
+}
+#uploadBtn:hover {
+    background: var(--bg);
+}
+
+#submit-button {
+    right: 10px;
+    background: var(--black);
+}
+#submit-button img {
+    filter: invert(1);
+}
+#submit-button:hover {
+    background: #2a2a2a;
+}
+#submit-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ── RESET BUTTON ────────────────────────────── */
+
+#reset-button {
+    padding: 8px 18px;
+    font-size: 0.72rem;
+    font-family: var(--font-banner);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--black);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition:
+        background var(--t-base),
+        color var(--t-base),
+        border-color var(--t-base);
+}
+
+#reset-button:hover {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--white);
+}
+
+/* ── MODELL-TOGGLE-BAR (LLM-Provider wählen) ──────── */
+
+.model-toggle-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 2px 8px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.model-toggle-label {
+    font-family: var(--font-banner);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Zusammenhängende, segmentierte Toggle-Bar (ein gerahmter Track,
+   die Buttons sitzen als Segmente darin; aktives Segment gefüllt). */
+.model-picker {
+    display: inline-flex;
+    align-items: stretch;
+    padding: 3px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+
+.model-toggle-row:has(.model-picker:empty) {
+    display: none;
+}
+
+.model-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 7px 18px;
+    font-family: var(--font-banner);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-radius: 999px;
+    cursor: pointer;
+    transition:
+        background var(--t-slow),
+        color var(--t-slow);
+}
+
+.model-btn:hover {
+    color: var(--black);
+}
+
+.model-btn.is-active {
+    background: var(--black);
+    color: var(--white);
+}
+
+/* Cycle-Button: ein Button, der durch die LLMs durchschaltet. */
+.model-cycle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.model-cycle .model-cycle-icon {
+    font-size: 0.9rem;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.model-cycle:hover .model-cycle-icon,
+.model-cycle:focus-visible .model-cycle-icon {
+    transform: rotate(180deg);
+}

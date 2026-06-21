@@ -1,0 +1,232 @@
+/* ── IMAGE PALETTE PANEL (COMPP Module) ──────── */
+
+.image-palette-panel {
+    flex: 1 1 460px;
+    width: 100%;
+    min-width: 0; /* the wide idle marquee must not force wrapping */
+    padding: 24px;
+    min-height: 420px;
+    flex-direction: column;
+    gap: 14px;
+    display: none; /* erscheint erst bei Bild-Input (has-image-palette) */
+}
+
+/* Erscheint wie der Farbpaletten-Generator, sobald ein Bild da ist. */
+.palette-container.has-image-palette .image-palette-panel {
+    display: flex;
+}
+
+.image-palette-panel h2 {
+    margin: 0;
+}
+
+.image-palette-stage {
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+}
+
+/* ── Idle marquee (no images yet) ─────────────── */
+
+/* Compact: same footprint as the empty stage box. */
+.image-marquee {
+    min-height: 96px;
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 12%,
+        #000 88%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.image-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: image-marquee-scroll 18s linear infinite;
+}
+
+.image-marquee-half {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-family: var(--font-banner);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+@keyframes image-marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .image-marquee-track {
+        animation: none;
+    }
+}
+
+.image-palette-thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.image-palette-thumb {
+    width: 100%;
+    height: 96px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface);
+    display: inline-flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    transition:
+        border-color var(--t-base),
+        box-shadow var(--t-base);
+}
+
+.image-palette-thumb img {
+    width: 100%;
+    height: 66px;
+    object-fit: cover;
+    display: block;
+}
+
+.image-palette-thumb-label {
+    display: block;
+    width: 100%;
+    height: 28px;
+    padding: 6px 7px;
+    font-family: var(--font-banner);
+    font-size: 0.58rem;
+    line-height: 1;
+    text-align: center;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: var(--surface);
+    border-top: 1px solid var(--line-soft);
+}
+
+.image-palette-thumb.is-active {
+    border-color: var(--black);
+    box-shadow: inset 0 0 0 1px var(--black);
+}
+
+.image-palette-thumb:hover {
+    border-color: var(--black);
+}
+
+.image-palette-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.image-palette-slider-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#image-palette-slider {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    height: 2px;
+    background: var(--black);
+    outline: none;
+}
+
+#image-palette-slider:disabled {
+    background: var(--line);
+}
+
+#image-palette-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--black);
+    background: var(--white);
+    cursor: pointer;
+}
+
+#image-palette-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--black);
+    background: var(--white);
+    cursor: pointer;
+}
+
+.image-palette-hint {
+    font-family: var(--font-banner);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.image-palette-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 130px;
+}
+
+.image-palette-list .multi-color-output {
+    padding: 0;
+    background: transparent;
+    width: 100%;
+}
+
+.image-palette-preview {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+}
+
+.image-palette-preview .palette-title {
+    display: none;
+}
+
+.image-palette-placeholder {
+    width: 100%;
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--font-credit);
+    font-variation-settings: "wght" 300;
+    font-style: italic;
+    font-size: 0.9rem;
+}

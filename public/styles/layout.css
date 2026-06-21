@@ -1,0 +1,135 @@
+/* ── NAVIGATION ──────────────────────────────── */
+
+header {
+    position: relative;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: default;
+}
+
+.logo-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--c, var(--black));
+    display: block;
+    margin-left: -5px;
+    flex-shrink: 0;
+    transition: margin-left 0.2s ease;
+}
+
+.logo-dot:first-child {
+    margin-left: 0;
+}
+.site-logo:hover .logo-dot {
+    margin-left: 4px;
+}
+.site-logo:hover .logo-dot:first-child {
+    margin-left: 0;
+}
+
+/* On hover, the credits unfold between the dots. */
+.logo-word {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: var(--font-banner);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition:
+        max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease,
+        margin 0.3s ease;
+}
+
+.site-logo:hover .logo-word {
+    max-width: 160px;
+    opacity: 1;
+    margin: 0 7px 0 9px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* ── HEADER WORDMARK ─────────────────────────────
+   English in front (black), Korean behind it —
+   offset to the right, tinted with the colour of
+   the selected coding button (kept subtle so the
+   foreground stays readable). */
+
+.site-wordmark {
+    position: relative;
+    line-height: 1;
+    user-select: none;
+}
+
+.wordmark-en {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-banner);
+    font-weight: 400;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--black);
+    white-space: nowrap;
+}
+
+.wordmark-ko {
+    position: absolute;
+    left: 50%; /* centred on the English title */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    font-family: "ab-gamma", sans-serif;
+    font-weight: 900;
+    font-size: 3.2rem;
+    letter-spacing: -0.1em;
+    white-space: nowrap;
+    /* Selected button colour, heavily diluted; quiet ink before any selection. */
+    color: color-mix(in srgb, var(--selected-format-color, var(--black)) 16%, transparent);
+    transition: color 0.3s ease;
+    pointer-events: none;
+}
+
+@media (max-width: 560px) {
+    .wordmark-en {
+        font-size: 1rem;
+    }
+    .wordmark-ko {
+        font-size: 1.6rem;
+    }
+}
+
+/* ── SECTION LABELS ──────────────────────────── */
+
+/* Section labels: banner voice (array-mono), quiet. */
+h2 {
+    font-family: var(--font-banner);
+    font-weight: 400;
+    font-size: 0.76rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin: 0 0 16px;
+}

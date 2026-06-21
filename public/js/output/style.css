@@ -1,0 +1,132 @@
+/* ===== Output Styles ===== */
+
+/* --- Markdown --- */
+.md-output h1,
+.md-output h2,
+.md-output h3,
+.md-output h4,
+.md-output h5,
+.md-output h6 {
+    margin: 12px 0 6px 0;
+    color: var(--black, #0a0a0a);
+}
+
+.md-output h1 {
+    font-size: 10em;
+}
+.md-output h2 {
+    font-size: 1.4em;
+}
+.md-output h3 {
+    font-size: 1.2em;
+}
+.md-output h4 {
+    font-size: 1.1em;
+}
+
+.md-output p {
+    margin: 8px 0;
+}
+
+.md-output ul,
+.md-output ol {
+    margin: 8px 0;
+    padding-left: 24px;
+}
+
+.md-output li {
+    margin: 4px 0;
+}
+.md-output strong {
+    font-weight: 700;
+}
+.md-output em {
+    font-style: italic;
+}
+
+.md-output a {
+    color: var(--black, #0a0a0a);
+    text-decoration: underline;
+    text-underline-offset: 0.14em;
+}
+
+.md-output hr {
+    border: none;
+    border-top: 1px solid var(--line, rgba(10, 10, 10, 0.16));
+    margin: 16px 0;
+}
+
+.md-inline-code {
+    background: rgba(10, 10, 10, 0.06);
+    color: var(--black, #0a0a0a);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm, 4px);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9em;
+}
+
+/* Shared styling for code / JSON blocks */
+.md-code-block,
+.json-output,
+.code-output pre {
+    background: #111111;
+    color: #f1eee7;
+    padding: 16px 18px;
+    border-radius: var(--radius, 8px);
+    overflow-x: auto;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.md-code-block {
+    margin: 12px 0;
+}
+
+/* --- JSON --- */
+.json-key {
+    color: #ffd28a;
+}
+.json-string {
+    color: #8bc8ff;
+}
+.json-number {
+    color: #a6e3a1;
+}
+.json-boolean {
+    color: #f2c38b;
+}
+.json-null {
+    color: #d0c7bf;
+    font-style: italic;
+}
+
+/* --- Code --- */
+.code-output {
+    position: relative;
+}
+
+.code-lang {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.56);
+    font-family: var(--font-mono, monospace);
+    text-transform: uppercase;
+}
+
+.code-keyword {
+    color: #8bc8ff;
+}
+.code-string {
+    color: #f2c38b;
+}
+.code-comment {
+    color: #98a28f;
+    font-style: italic;
+}
+.code-number {
+    color: #a6e3a1;
+}

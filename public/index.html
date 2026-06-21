@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SAEK Pigment — Color Palette Generator</title>
+        <!-- Base -->
+        <link rel="stylesheet" href="styles/base.css" />
+        <!-- Layout: nav, hero, headings -->
+        <link rel="stylesheet" href="styles/layout.css" />
+        <!-- Form: input, buttons, color-format buttons -->
+        <link rel="stylesheet" href="styles/form.css" />
+        <!-- Palette: swatches, history panel, palette entries -->
+        <link rel="stylesheet" href="styles/palette.css" />
+        <!-- COMPP: image upload & palette extraction panel -->
+        <link rel="stylesheet" href="styles/image-palette.css" />
+        <!-- Loader animation & keyframes -->
+        <link rel="stylesheet" href="styles/loader.css" />
+        <!-- Responsive breakpoints -->
+        <link rel="stylesheet" href="styles/responsive.css" />
+        <!-- Output renderer styles (JSON / code / markdown) -->
+        <link rel="stylesheet" href="js/output/style.css" />
+        <!-- Color-coding format buttons -->
+        <link rel="stylesheet" href="styles/picker.css" />
+        <!-- Color vision deficiency simulation for the history palette -->
+        <link rel="stylesheet" href="styles/cvd.css" />
+        <!-- Contrast checker tool (no LLM/API) -->
+        <link rel="stylesheet" href="styles/contrast.css" />
+        <!-- Mockup preview (no LLM/API): palette shown in real layouts -->
+        <link rel="stylesheet" href="styles/mockup.css" />
+        <!-- Coolors-style full-bleed palette generator -->
+        <link rel="stylesheet" href="styles/coolors.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/uut0vbo.css" />
+        <script type="module" src="js/main.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="site-nav">
+                <div
+                    class="site-logo"
+                    aria-label="SAEK Pigment — Sandro Fankhauser, DEWEB, COMPP, FS26"
+                >
+                    <span class="logo-dot" style="--c: #ff6b6b"></span>
+                    <span class="logo-word">Sandro&nbsp;Fankhauser</span>
+                    <span class="logo-dot" style="--c: #ffd93d"></span>
+                    <span class="logo-word">DEWEB</span>
+                    <span class="logo-dot" style="--c: #6bcb77"></span>
+                    <span class="logo-word">COMPP</span>
+                    <span class="logo-dot" style="--c: #4d96ff"></span>
+                    <span class="logo-word">FS26</span>
+                    <span class="logo-dot" style="--c: #b983ff"></span>
+                    <span class="logo-word">SAEK</span>
+                    <span class="logo-dot" style="--c: #ff9f1c"></span>
+                </div>
+                <div class="site-wordmark" aria-label="SAEK Pigment">
+                    <span class="wordmark-ko" lang="ko" aria-hidden="true">색&nbsp;피그먼트</span>
+                    <span class="wordmark-en" lang="en">SAEK&nbsp;Pigment</span>
+                </div>
+
+                <div class="nav-right">
+                    <div class="cool-toolbar" role="group" aria-label="Paletten-Steuerung">
+                        <button
+                            id="cool-generate"
+                            class="cool-nav-generate"
+                            type="button"
+                            title="Neue Palette (Leertaste)"
+                        >
+                            Generate <span class="cool-kbd">Space</span>
+                        </button>
+                        <button
+                            id="cool-format"
+                            class="cool-nav-format"
+                            type="button"
+                            title="Farbcodierung umschalten (HEX / RGB / HSL)"
+                            aria-label="Farbcodierung umschalten"
+                        >
+                            HEX
+                        </button>
+                        <button
+                            id="cool-undo"
+                            class="cool-nav-icon"
+                            type="button"
+                            title="Rückgängig (Cmd/Ctrl+Z)"
+                            aria-label="Rückgängig"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M9 14 4 9l5-5" />
+                                <path d="M4 9h11a5 5 0 0 1 0 10h-4" />
+                            </svg>
+                        </button>
+                        <button
+                            id="cool-redo"
+                            class="cool-nav-icon"
+                            type="button"
+                            title="Wiederholen (Cmd/Ctrl+Shift+Z)"
+                            aria-label="Wiederholen"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="m15 14 5-5-5-5" />
+                                <path d="M20 9H9a5 5 0 0 0 0 10h4" />
+                            </svg>
+                        </button>
+                        <button
+                            id="cool-view"
+                            class="cool-nav-icon"
+                            type="button"
+                            title="Palette in Layouts ansehen"
+                            aria-label="Palette ansehen"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="3" y="3" width="7" height="7" rx="1" />
+                                <rect x="14" y="3" width="7" height="7" rx="1" />
+                                <rect x="3" y="14" width="7" height="7" rx="1" />
+                                <rect x="14" y="14" width="7" height="7" rx="1" />
+                            </svg>
+                        </button>
+                        <button
+                            id="cool-export"
+                            class="cool-nav-icon"
+                            type="button"
+                            title="Als PNG exportieren"
+                            aria-label="Exportieren"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M12 3v12" />
+                                <path d="m6 11 6 6 6-6" />
+                                <path d="M5 21h14" />
+                            </svg>
+                        </button>
+                    </div>
+                    <button id="reset-button">Reset</button>
+                </div>
+            </nav>
+        </header>
+
+        <section class="coolors" id="coolors" aria-label="Farbpaletten-Generator">
+            <div class="coolors-row" id="coolors-row"></div>
+        </section>
+
+        <main>
+            <div id="output-container">
+                <div id="output">Wie kann ich dir helfen?</div>
+            </div>
+
+            <form id="form">
+                <div class="input-area">
+                    <div class="model-toggle-row">
+                        <span class="model-toggle-label">Modell</span>
+                        <div
+                            class="model-picker"
+                            id="model-picker"
+                            role="group"
+                            aria-label="KI-Modell wählen"
+                        ></div>
+                    </div>
+
+                    <div class="search-bar">
+                        <input id="input" type="text" placeholder="Nachricht schreiben..." />
+                        <input
+                            id="fileInput"
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,image/gif"
+                            multiple
+                            hidden
+                        />
+
+                        <button type="button" id="uploadBtn" class="inside-btn">
+                            <img src="assets/Add-Img.png" alt="Bild" />
+                        </button>
+
+                        <button type="submit" id="submit-button" class="inside-btn">
+                            <img src="assets/arrow.png" alt="Senden" />
+                        </button>
+                    </div>
+
+                    <div
+                        class="color-picker"
+                        id="color-picker"
+                        role="group"
+                        aria-label="Farbcodierung wählen"
+                    >
+                        <button
+                            id="btn-hsv"
+                            class="color-btn"
+                            type="button"
+                            data-color="#ff6b6b"
+                            style="--c: #ff6b6b"
+                        >
+                            HSV
+                        </button>
+                        <button
+                            id="btn-rgb"
+                            class="color-btn"
+                            type="button"
+                            data-color="#4d96ff"
+                            style="--c: #4d96ff"
+                        >
+                            RGB
+                        </button>
+                        <button
+                            id="btn-hex"
+                            class="color-btn"
+                            type="button"
+                            data-color="#ffd93d"
+                            style="--c: #ffd93d"
+                        >
+                            HEX
+                        </button>
+                        <button
+                            id="btn-cmyk"
+                            class="color-btn"
+                            type="button"
+                            data-color="#6bcb77"
+                            style="--c: #6bcb77"
+                        >
+                            CMYK
+                        </button>
+                        <button
+                            id="btn-hsl"
+                            class="color-btn"
+                            type="button"
+                            data-color="#b983ff"
+                            style="--c: #b983ff"
+                        >
+                            HSL
+                        </button>
+                        <button
+                            id="btn-lch"
+                            class="color-btn"
+                            type="button"
+                            data-color="#ff9f1c"
+                            style="--c: #ff9f1c"
+                        >
+                            LCH
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <div class="palette-wrapper">
+            <div class="palette-container">
+                <section class="history-panel">
+                    <div class="history-panel-head">
+                        <h2>History Palette</h2>
+                        <label class="cvd-control">
+                            Color blindness
+                            <select
+                                id="cvd-select"
+                                class="cvd-select"
+                                aria-label="Farbsehschwäche in der History-Palette simulieren"
+                            ></select>
+                        </label>
+                    </div>
+                    <div id="color-history" aria-live="polite"></div>
+                </section>
+
+                <section class="image-palette-panel" id="image-palette-panel">
+                    <h2>Image Palette</h2>
+                    <div id="image-palette-stage" class="image-palette-stage"></div>
+
+                    <div class="image-palette-controls">
+                        <div class="image-palette-slider-row">
+                            <input
+                                id="image-palette-slider"
+                                type="range"
+                                min="0"
+                                max="0"
+                                step="0.01"
+                                value="0"
+                                disabled
+                            />
+                        </div>
+                        <div class="image-palette-hint">
+                            Bis zu 3 Bilder. Der Slider blendet zwischen den Paletten.
+                        </div>
+                    </div>
+
+                    <div id="image-palette-list" class="image-palette-list"></div>
+                </section>
+            </div>
+        </div>
+
+        <div class="contrast-wrapper">
+            <section
+                class="contrast-panel"
+                id="contrast-panel"
+                aria-label="Kontrast-Check zwischen zwei Farben"
+            >
+                <h2>Kontrast-Check</h2>
+                <div class="contrast-main">
+                    <div class="contrast-inputs">
+                        <label class="contrast-field">
+                            <span>Primärfarbe · Hintergrund</span>
+                            <input
+                                id="contrast-bg"
+                                type="text"
+                                value="#0A0A0A"
+                                spellcheck="false"
+                                autocomplete="off"
+                            />
+                        </label>
+                        <label class="contrast-field">
+                            <span>Sekundärfarbe · Text</span>
+                            <input
+                                id="contrast-fg"
+                                type="text"
+                                value="#FAFAF7"
+                                spellcheck="false"
+                                autocomplete="off"
+                            />
+                        </label>
+                    </div>
+                    <div class="contrast-preview">
+                        <div class="contrast-square" id="contrast-square">
+                            <span class="contrast-sample" id="contrast-sample">
+                                <strong>Aa</strong>
+                                <span>Beispieltext 0123</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="contrast-result" id="contrast-result"></div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

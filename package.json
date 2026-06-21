@@ -1,0 +1,15 @@
+{
+  "name": "saek-pigment",
+  "version": "1.0.0",
+  "description": "SAEK Pigment — spezialisierter Farb- & Paletten-Designer-Agent (AI Agent Web Harness) mit Ollama/Copilot, CLI-Tools und Subagenten.",
+  "type": "module",
+  "scripts": {
+    "start": "bun server.js",
+    "dev": "bun --watch server.js",
+    "lint": "bun x eslint ."
+  },
+  "dependencies": {
+    "openai": "^6.42.0",
+    "replicate": "^1.4.0"
+  }
+}

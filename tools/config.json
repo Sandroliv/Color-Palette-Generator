@@ -1,0 +1,9 @@
+{
+  "read_file": true,
+  "list_files": true,
+  "bash": true,
+  "edit_file": true,
+  "code_search": true,
+  "play_mp3": true,
+  "subagent": true
+}

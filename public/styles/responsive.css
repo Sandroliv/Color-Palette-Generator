@@ -1,0 +1,47 @@
+/* ── RESPONSIVE ──────────────────────────────── */
+
+@media (max-width: 768px) {
+    .site-nav {
+        padding: 14px 0;
+    }
+
+    .palette-container {
+        width: calc(100% - 32px);
+        flex-direction: column;
+    }
+
+    .history-panel,
+    .image-palette-panel {
+        flex-basis: 100%;
+        min-height: 360px;
+        border-right: none;
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .image-palette-panel {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) {
+    #form {
+        width: calc(100% - 32px);
+    }
+
+    .input-area {
+        padding: 12px;
+    }
+
+    .inside-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    #uploadBtn {
+        right: 50px;
+    }
+
+    #input {
+        padding-right: 96px;
+    }
+}

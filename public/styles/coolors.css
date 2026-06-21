@@ -1,0 +1,277 @@
+/* ───────────────────────────────────────────────
+    COOLORS-ARTIGER GENERATOR (lokal, kein LLM/API)
+    Vollbild-Spalten ohne Trennlinien; Hover-Toolbar
+    je Spalte; HEX + Farbname unten. Icons/Typo passen
+    ihre Farbe (Weiss/Anthrazit) an den Kontrast an.
+   ─────────────────────────────────────────────── */
+
+.coolors {
+    width: 100%;
+}
+
+.coolors-row {
+    display: flex;
+    width: 100%;
+    height: calc(100dvh - 118px); /* füllt den Screen unter der Nav */
+    min-height: 440px;
+}
+
+.coolors-row.is-dragging {
+    cursor: grabbing;
+}
+.coolors-row.is-dragging .cool-col {
+    transition: none;
+}
+
+.cool-col {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 54px;
+    transition: flex-grow 0.25s ease;
+}
+
+/* ── Hover-Toolbar (oben, vertikal) ── */
+.cool-tools {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-top: 30px;
+    color: inherit; /* erbt die kontrastrichtige Tinte */
+}
+
+.cool-tool {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0; /* erscheint beim Hover */
+    transition:
+        opacity var(--t-mid),
+        background var(--t-base),
+        transform var(--t-fast);
+}
+
+.cool-col:hover .cool-tool,
+.cool-tool:focus-visible {
+    opacity: 1;
+}
+
+/* Gesperrtes Schloss bleibt immer sichtbar. */
+.cool-tool.is-on {
+    opacity: 1;
+}
+
+.cool-tool:hover {
+    background: rgba(127, 127, 127, 0.22);
+    transform: translateY(-1px);
+}
+.cool-tool.is-copied {
+    transform: scale(0.86);
+}
+.cool-tool svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+.cool-grip {
+    cursor: grab;
+}
+.cool-grip:active {
+    cursor: grabbing;
+}
+
+/* ── HEX + Farbname unten ── */
+.cool-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: inherit;
+    user-select: none;
+    text-align: center;
+}
+
+.cool-hex {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    letter-spacing: 0.05em;
+}
+
+.cool-name {
+    font-family: var(--font-text);
+    font-variation-settings: "wght" 400;
+    font-size: 0.8rem;
+    opacity: 0.78;
+}
+
+/* ── Slim Top-Bar-Controls (in der Nav) ── */
+.cool-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cool-nav-generate {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px;
+    font-family: var(--font-banner);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--black);
+    border: 1px solid var(--black);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition:
+        background var(--t-base),
+        transform var(--t-base);
+}
+
+.cool-nav-generate:hover {
+    background: #2a2a2a;
+    transform: translateY(-1px);
+}
+.cool-nav-generate:active {
+    transform: translateY(0);
+}
+
+.cool-kbd {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.cool-nav-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition:
+        background var(--t-base),
+        border-color var(--t-base),
+        transform var(--t-fast);
+}
+
+.cool-nav-icon:hover {
+    background: var(--bg);
+    border-color: var(--black);
+    transform: translateY(-1px);
+}
+.cool-nav-icon svg {
+    width: 17px;
+    height: 17px;
+    display: block;
+}
+
+/* Toggle für die Farbcodierung (HEX / RGB / HSL) –
+   gefärbte Pille wie das Format-Label in der History. */
+.cool-nav-format {
+    min-width: 52px;
+    height: 36px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: var(--font-display-weight);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--black);
+    background: var(--c, var(--white));
+    border: none;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cool-nav-format:hover {
+    transform: scale(1.12) rotate(-2deg);
+}
+.cool-nav-format:active {
+    transform: scale(1.04);
+}
+
+/* Pillenfarbe je Codierung – gleiches Mapping wie in der History. */
+.cool-nav-format[data-format="hex"] {
+    --c: var(--pop-yellow);
+}
+.cool-nav-format[data-format="rgb"] {
+    --c: var(--pop-blue);
+}
+.cool-nav-format[data-format="hsl"] {
+    --c: var(--pop-purple);
+}
+.cool-nav-format[data-format="hsv"] {
+    --c: var(--pop-red);
+}
+.cool-nav-format[data-format="cmyk"] {
+    --c: var(--pop-green);
+}
+.cool-nav-format[data-format="lch"] {
+    --c: var(--pop-orange);
+}
+
+/* ── Mobil: Spalten zu gestapelten Zeilen ── */
+@media (max-width: 640px) {
+    .coolors-row {
+        flex-direction: column;
+        height: auto;
+        min-height: 0;
+    }
+    .cool-col {
+        flex: 0 0 auto;
+        min-height: 96px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 22px;
+    }
+    .cool-tools {
+        position: static;
+        flex-direction: row;
+        gap: 6px;
+        padding: 0;
+        width: auto;
+    }
+    .cool-tool {
+        opacity: 1;
+        width: 32px;
+        height: 32px;
+    }
+    .cool-meta {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 10px;
+    }
+}

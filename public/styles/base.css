@@ -1,0 +1,92 @@
+:root {
+    /* ── Pop palette (brand colours, used by logo & picker) ── */
+    --pop-red: #ff6b6b;
+    --pop-yellow: #ffd93d;
+    --pop-green: #6bcb77;
+    --pop-blue: #4d96ff;
+    --pop-purple: #b983ff;
+    --pop-orange: #ff9f1c;
+
+    /* ── Swiss/Studio core ─────────────────────────── */
+    --bg: #ffffff; /* paper white */
+    --surface: #fffbfb; /* cards */
+    --black: #0a0a0a; /* ink */
+    --red: #0a0a0a;
+    --white: #ffffff;
+    --muted: #6f6c66;
+    --line: rgba(10, 10, 10, 0.16); /* hairline */
+    --line-soft: rgba(10, 10, 10, 0.07);
+    --border: var(--line);
+
+    /* ── Radii (sharp, restrained) ─────────────────── */
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --radius-pill: 999px;
+
+    /* ── Shadows: nearly none — hairlines do the work ─ */
+    --shadow-hover: 0 6px 18px rgba(10, 10, 10, 0.08);
+
+    /* ── Transitions (zentrale Timings, vorher überall inline) ─ */
+    --t-fast: 0.12s ease;
+    --t-base: 0.14s ease;
+    --t-mid: 0.16s ease;
+    --t-slow: 0.18s ease;
+
+    /* ── Fonts ─────────────────────────────────────── */
+    --font-display: "snaga-uni-display-extralight", "Arial Black", sans-serif;
+    --font-display-weight: 900;
+    --font-text: "adapter-pe-variable", "Arial", sans-serif;
+    --font-text-weight: "ital" 0, "slnt" 0, "wght" 450, "opsz" 4;
+    --font-mono: "Fira Code", "SF Mono", "Consolas", monospace;
+    --font-banner: "array-mono", serif; /* UI voice */
+    --font-credit: "late-serif-variable", serif; /* quiet serif voice */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-text);
+    font-variation-settings: var(--font-text-weight);
+    color: var(--black);
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--black);
+    color: var(--bg);
+}
+
+:focus-visible {
+    outline: 2px solid var(--black);
+    outline-offset: 2px;
+}
+
+/* ── Scrollbars: thin, neutral ─────────────────── */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(10, 10, 10, 0.28) transparent;
+}
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+    background: rgba(10, 10, 10, 0.22);
+    border-radius: var(--radius-pill);
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(10, 10, 10, 0.4);
+}

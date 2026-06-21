@@ -1,0 +1,77 @@
+/* ───────────────────────────────────────────────
+    SEHSIMULATION (Color Vision Deficiency)
+    Steuerung im History-Panel-Kopf + Filter, der die
+    Swatches durch eine feColorMatrix schickt (cvd.js).
+   ─────────────────────────────────────────────── */
+
+.history-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+}
+
+.history-panel-head h2 {
+    margin: 0;
+}
+
+.cvd-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-banner);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.cvd-select {
+    font-family: var(--font-text);
+    font-variation-settings: var(--font-text-weight);
+    font-size: 0.82rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--black);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 5px 12px;
+    cursor: pointer;
+    transition:
+        border-color var(--t-mid),
+        box-shadow var(--t-slow);
+}
+
+.cvd-select:hover {
+    border-color: color-mix(in srgb, var(--black) 45%, var(--line));
+}
+
+.cvd-select:focus-visible {
+    box-shadow: var(--shadow-hover);
+}
+
+/* The simulation only touches the colour swatches. */
+#color-history[data-cvd="protanopia"] {
+    filter: url(#cvd-protanopia);
+}
+#color-history[data-cvd="deuteranopia"] {
+    filter: url(#cvd-deuteranopia);
+}
+#color-history[data-cvd="tritanopia"] {
+    filter: url(#cvd-tritanopia);
+}
+#color-history[data-cvd="achromatopsia"] {
+    filter: url(#cvd-achromatopsia);
+}
+
+@media (max-width: 560px) {
+    .cvd-control {
+        font-size: 0.6rem;
+    }
+    .cvd-select {
+        font-size: 0.78rem;
+    }
+}
