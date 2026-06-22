@@ -1,22 +1,13 @@
 # Color Palette AI Agent
+Sandro Fankhauser - Digital Ideation focus computer science
 
-**HSLU  Digital Ideation FS26 - DEWEB**
+**FS26 - DEWEB**
 
-> This project spans **two modules**: [COMPP](#compp-module) and [DEWEB](#deweb-module). See the section below for a clear breakdown of what belongs to which module.
+**Kurzbeschrieb:** Ein spezialisierter KI-Agent rund um Farben: er schlägt harmonische Paletten und Farbcodes vor. Dazu kommen CLI-Tools, Bildanalyse und lokale Design-Helfer wie Kontrast, Mockup und Farbblindheit.
 
-<img src="docs/img/01-randomizer.png" width="820" alt="Color randomizer — full-bleed palette generator with format toggle" />
-
----
-
-## Screenshots
-
-**AI agent**  prompt input, provider toggle, the six color-format buttons (HSV, RGB, HEX, CMYK, HSL, LCH) and the history palette with the color-blindness selector:
-
-<img src="docs/img/03-agent.png" width="820" alt="AI agent chat with format buttons and history palette" />
-
-**Mockup preview**  any palette shown across 6 designed layouts (website, poster, app, music player, gradient art, dashboard) with a harmony label:
-
-<img src="docs/img/02-mockup.png" width="760" alt="Mockup preview overlay" />
+> This project covers two modules at once, [COMPP](#compp-module) and [DEWEB](#deweb-module). The overview further down shows which part belongs where.
+>
+> Screenshots are in the project documentation, see [dokument.md](dokument.md#abgegebene-bilder).
 
 ---
 
@@ -27,15 +18,15 @@
 | **COMPP** | Image → Color Palette Generator (ML-powered) | `public/js/image/image-palette.js`, `server/replicate.js`, `public/js/color/color-parser.js` |
 | **DEWEB** | Specialized AI Agent with color palettes & local design tools | `server.js`, `server/chat.js`, `tools/`, `public/js/main.js`, `public/styles/` |
 
-Both modules share the same codebase and run as a single Bun web application. The COMPP feature (image upload → palette extraction) is embedded as a panel within the DEWEB agent interface.
+Both modules live in the same codebase and run as one Bun web app. The COMPP part, image upload to palette extraction, simply shows up as a panel inside the DEWEB agent.
 
-On submit, the app first decides whether the input is a **text prompt** (→ LLM chat) or an **image prompt** (→ Replicate), then routes it to the matching API.
+When you hit submit, the app looks at what you gave it: plain text goes to the LLM chat, an image goes to Replicate. From there it lands at the matching API.
 
 ---
 
 ## COMPP Module
 
-**Image to Color Palette Generator** — Upload one or more images and extract a harmonious color palette via a machine-learning model (Replicate API). The extracted colors feed the AI chat agent and the local design tools.
+**Image to Color Palette Generator.** Drop in one or more images and a machine learning model (Replicate API) pulls a harmonious palette out of them. Those colors then flow straight into the chat agent and the local design tools.
 
 See [WIKI.md](WIKI.md#compp-module) for full documentation.
 
@@ -43,7 +34,13 @@ See [WIKI.md](WIKI.md#compp-module) for full documentation.
 
 ## DEWEB Module
 
-**AI Color Palette Agent** — a specialized AI agent for color theory, color encoding and design palettes, with a playful web interface, CLI tools and subagent support. Around the agent sit several **local, no-LLM design tools**:
+### Projektbeschrieb
+
+I did not want to build yet another general purpose chatbot, but an agent that is genuinely good at one thing: colors. It knows color theory and color encoding, suggests harmonious palettes and hands you the matching codes right away. All of it lives inside a playful interface that is meant to be fun rather than feel like a tool. Whoever uses the agent picks which language model answers: OpenAI or GitHub Copilot from the cloud, or Ollama running locally on your own machine. If one of them fails, nothing quietly takes over, so you see the error straight away. Under the hood the agent has five built in tools plus one of its own, so it can read files, search through the project and even send off several subagents at once. Around the chat sit small helpers that run without any model: a Coolors style randomizer, a WCAG contrast check, a mockup preview and a color blindness simulation. Sounds and animations round it all off.
+
+### Local Design Tools
+
+These all run right in the browser, no language model involved:
 
 - **Color-format buttons** 
 HEX · RGB · HSV · HSL · CMYK · LCH
@@ -68,7 +65,7 @@ See [WIKI.md](WIKI.md#deweb-module) for the full learning-objective checklist.
 
 ## LLM Providers (cloud + local, user-selectable)
 
-The agent supports **three** providers and lets the user pick one in the web UI via a **toggle / cycle button** above the prompt — there is **no automatic fallback**, so any provider error is shown directly.
+You can choose between three providers right in the web UI, using the toggle button above the prompt. There is no automatic fallback, and that is on purpose: if a provider runs into an error, you see it directly instead of silently getting answers from somewhere else.
 
 | Provider | Type | Env key | Default model
 |----------|------|---------|--------------|
@@ -77,17 +74,17 @@ The agent supports **three** providers and lets the user pick one in the web UI 
 | **Ollama** | Local | `OLLAMA_BASE_URL` (no key) | `qwen3:8b` | 
 
 
-A provider only appears in the toggle if it is configured (its key is set; Ollama always shows). `GET /api/providers` lists the available providers; the preferred default is `LLM_PROVIDER` (falls back to the first available).
+A provider only shows up in the toggle once it is actually set up (its key is present; Ollama is always there). `GET /api/providers` lists what is available, and the default comes from `LLM_PROVIDER`, falling back to the first one it finds.
 
 ## Replicate API
 
-Used by COMPP to analyse uploaded images and extract palettes. The extracted colors then feed the design tools and the agent.
+COMPP uses this to look at uploaded images and pull palettes out of them. The colors it finds then feed into the design tools and the agent.
 
 ## Aufgabenbeschrieb / Methode / Ergebnis
 
-- **Problem:** Eine schnelle, visuell ansprechende KI-Unterstützung für Farbentscheidungen bereitstellen.
-- **Methode:** Spezialisierter Chat-Agent mit Bildanalyse, Farbextraktion, CLI-Tools und lokalen Design-Tools (Kontrast, Mockup, CVD).
-- **Ergebnis:** Harmonische Farbpaletten, passende Farbcodes und klare Designempfehlungen in einem einzigen Web-Workflow.
+- **Problem:** Farbentscheidungen kosten oft Zeit. Ich wollte eine schnelle Hilfe, die auch noch Spass macht und gut aussieht.
+- **Methode:** Ein spezialisierter Chat-Agent, der Bilder analysiert, Farben herausliest und mit eigenen Tools sowie lokalen Helfern (Kontrast, Mockup, Farbblindheit) arbeitet.
+- **Ergebnis:** Stimmige Paletten, die passenden Farbcodes und konkrete Designtipps, alles an einem Ort im Browser.
 
 ---
 
@@ -159,8 +156,8 @@ bun run server.js -p "Review server.js with two subagents: Subagent 1 is a secur
 
 ## Credits / Third-Party Sources
 
-- **Color naming** — uses the open-source [meodai/color-name-api](https://github.com/meodai/color-name-api) via its public instance [api.color.pizza](https://api.color.pizza). Integrated in [public/js/color/color-names.js](public/js/color/color-names.js) (with a local HSL fallback when the API is unavailable).
-- **Contrast rating** — the WCAG pass/fail thresholds follow [bbc/color-contrast-checker](https://github.com/bbc/color-contrast-checker). Implemented in [public/js/tools/contrast.js](public/js/tools/contrast.js).
+- **Color naming:** the names come from the open source [meodai/color-name-api](https://github.com/meodai/color-name-api), through its public instance [api.color.pizza](https://api.color.pizza). It is wired up in [public/js/color/color-names.js](public/js/color/color-names.js), with a small local HSL fallback for when the API is down.
+- **Contrast rating:** the WCAG pass and fail thresholds follow [bbc/color-contrast-checker](https://github.com/bbc/color-contrast-checker), implemented in [public/js/tools/contrast.js](public/js/tools/contrast.js).
 
 ## AI Declaration
 

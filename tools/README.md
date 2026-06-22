@@ -15,16 +15,16 @@ Mit der Datei `config.json` können einzelne Tools aktiviert oder deaktiviert we
   "bash": false,
   "edit_file": true,
   "code_search": true,
-  "play_mp3": false,
+  "play_mp3": true,
   "subagent": true
 }
 ```
 
-Das bash und das play_mp3 Tool sind Standardmässig ausgeschaltet. Setze ein Tool auf `true` um es zu aktivieren und auf `false` um es zu deaktivieren. Der Agent erhält dann keinen Zugriff mehr auf dieses Tool. Die Schlüssel entsprechen dem `name`-Feld in der jeweiligen Tool-Definition (z. B. `tool.function.name`). Nach Änderungen ist ein **Neustart des Agents** erforderlich.
+Setze ein Tool auf `true` um es zu aktivieren und auf `false` um es zu deaktivieren. Der Agent erhält dann keinen Zugriff mehr auf dieses Tool. Die Schlüssel entsprechen dem `name`-Feld in der jeweiligen Tool-Definition (z. B. `tool.function.name`). Nach Änderungen ist ein **Neustart des Agents** erforderlich.
 
 
 
-Die Tools bash, code_search und play_mp3, benötigen allenfalls weitergehende Konfiguration
+Die Tools bash, code_search und play_mp3 benötigen allenfalls weitergehende Konfiguration
 
 
 ### Bash
@@ -51,15 +51,12 @@ Das Tool code_search benötigt den Shell Befehl rg (ripgrep). Falls deine Shell 
 - Windows: ```winget install -e --id BurntSushi.ripgrep.MSVC```
 
 ### Play MP3
-Das Tool `play_mp3` (`tools/play_mp3.js`) spielt MP3-Dateien auf dem Server ab und verwendet dafür den Kommandozeilen-Player `mpg123`. Dieser muss auf dem System installiert sein.
+`play_mp3` (`tools/play_mp3.js`) spielt eine MP3-Datei auf dem Server ab und verwendet dafür den Kommandozeilen-Player `mpg123`. Dieser muss auf dem System installiert sein, ausserdem braucht es eine MP3-Datei, auf die der `path`-Parameter zeigt.
 
 #### Installation von mpg123
 - Linux: ```sudo apt install mpg123```
 - Mac: ```brew install mpg123```
 - Windows: ```winget install -e --id mpg123.mpg123```
-
-#### Verwendung
-Der Agent kann das Tool aufrufen, um eine MP3-Datei abzuspielen. Es wird ein `path`-Parameter erwartet, der den relativen oder absoluten Pfad zur MP3-Datei angibt.
 
 
 ---
