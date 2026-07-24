@@ -3,11 +3,14 @@ Sandro Fankhauser - Digital Ideation focus computer science
 
 **FS26 - DEWEB**
 
-**Kurzbeschrieb:** Ein spezialisierter KI-Agent rund um Farben: er schlägt harmonische Paletten und Farbcodes vor. Dazu kommen CLI-Tools, Bildanalyse und lokale Design-Helfer wie Kontrast, Mockup und Farbblindheit.
+**Github Repo:**
+https://github.com/Sandroliv/Color-Palette-Generator.git 
+
+**Short description:** A specialized AI agent all about color: it suggests harmonious palettes and the matching color codes. On top of that come CLI tools, image analysis and local design helpers like contrast, mockup and color blindness.
 
 > This project covers two modules at once, [COMPP](#compp-module) and [DEWEB](#deweb-module). The overview further down shows which part belongs where.
 >
-> Screenshots are in the project documentation, see [dokument.md](dokument.md#abgegebene-bilder).
+> Screenshots are in the project documentation, see [dokument.md](dokument.md#submitted-images).
 
 ---
 
@@ -80,11 +83,11 @@ A provider only shows up in the toggle once it is actually set up (its key is pr
 
 COMPP uses this to look at uploaded images and pull palettes out of them. The colors it finds then feed into the design tools and the agent.
 
-## Aufgabenbeschrieb / Methode / Ergebnis
+## Problem / Method / Result
 
-- **Problem:** Farbentscheidungen kosten oft Zeit. Ich wollte eine schnelle Hilfe, die auch noch Spass macht und gut aussieht.
-- **Methode:** Ein spezialisierter Chat-Agent, der Bilder analysiert, Farben herausliest und mit eigenen Tools sowie lokalen Helfern (Kontrast, Mockup, Farbblindheit) arbeitet.
-- **Ergebnis:** Stimmige Paletten, die passenden Farbcodes und konkrete Designtipps, alles an einem Ort im Browser.
+- **Problem:** Color decisions often eat up time. I wanted quick help that is also fun to use and looks good.
+- **Method:** A specialized chat agent that analyzes images, reads out their colors, and works with its own tools plus local helpers (contrast, mockup, color blindness).
+- **Result:** Coherent palettes, the matching color codes and concrete design tips, all in one place in the browser.
 
 ---
 

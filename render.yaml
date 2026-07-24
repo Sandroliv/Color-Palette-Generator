@@ -1,0 +1,26 @@
+# Render-Blueprint (Infrastructure as Code)
+# → Repo mit Render verbinden, Render liest diese Datei automatisch.
+#   https://render.com  →  New  →  Blueprint  →  Repo wählen.
+services:
+  - type: web
+    name: color-palette-generator
+    runtime: docker            # nutzt das Dockerfile im Repo-Root
+    plan: free                 # Gratis-Stufe (schläft nach Inaktivität, Cold-Start ~30-50s)
+    autoDeploy: true           # bei jedem Push auf den Branch neu deployen
+    healthCheckPath: /         # statische index.html als Health-Check
+    envVars:
+      # --- Alle LLM-Keys sind OPTIONAL ---
+      # Ohne Keys startet der Server trotzdem: statische UI + lokale Design-Tools
+      # (Randomizer, Kontrast, Mockup, Farbblindheit) laufen. Chat/Bildanalyse
+      # brauchen mindestens einen der folgenden Werte. In Render unter
+      # "Environment" eintragen (nicht hier ins Repo committen!).
+      - key: OPENAI_API_KEY
+        sync: false            # Wert manuell in Render setzen, nicht versioniert
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: GITHUB_COPILOT_KEY
+        sync: false
+      - key: REPLICATE_API_TOKEN
+        sync: false            # für die COMPP-Bild→Palette-Funktion
+      - key: LLM_PROVIDER
+        value: openai          # bevorzugter Provider im Toggle

@@ -1,0 +1,13 @@
+# Wird im Container frisch per `bun install` erzeugt → nicht mitkopieren
+node_modules
+
+# Secrets niemals ins Image
+.env
+.env.*
+
+# Git / Editor / Build-Artefakte
+.git
+.gitignore
+*.log
+docs/img
+notes
