@@ -7,7 +7,7 @@ WORKDIR /app
 # Zuerst nur Manifest + Lockfile → Docker-Layer-Cache nutzt Install erneut,
 # solange sich die Abhängigkeiten nicht ändern.
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+RUN bun install
 
 # Restlichen Code kopieren
 COPY . .
